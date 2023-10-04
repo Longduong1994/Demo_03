@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> Create</h1>
+<form action="/employee/create" th:object="${employeeRequest}" method="post">
+    <table border="10" cellpadding="20" cellspacing="10">
+        <tr>
+            <th>Name:</th>
+            <td>
+                <input type="text" th:field="*{name}"><br>
+                <span style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>
+                <input type="text" th:field="*{email}"><br>
+                <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Department:</th>
+            <td>
+                <select th:field="*{departmentId}">
+                    <option th:each="d : ${department}" th:value="${d.id}" th:text="${d.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Role:</th>
+            <td>
+                <div th:each="role : ${roles}">
+                    <input type="checkbox" th:field="*{roleId}" th:value="${role.id}" th:checked="${roles.get(0)}">
+                    <label th:text="${role.name}"></label><br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Add"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
